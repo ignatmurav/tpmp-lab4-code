@@ -6,15 +6,15 @@ SRC_DIR = src
 TEST_DIR = tests
 BUILD_DIR = build
 
-SOURCES = $(wildcard $(SRC_DIR)/*.c)
+# Все исходники, КРОМЕ main.c
+SOURCES = $(filter-out $(SRC_DIR)/main.c,$(wildcard $(SRC_DIR)/*.c))
 
-# Собираем каждый тест отдельно
+# Каждый тест собирается отдельно со всеми исходниками (без main.c)
 TEST_FILES = $(wildcard $(TEST_DIR)/t_*.c)
 TEST_TARGETS = $(patsubst $(TEST_DIR)/t_%.c,$(BUILD_DIR)/test_%,$(TEST_FILES))
 
 all: $(TEST_TARGETS)
 
-# Правило для сборки каждого теста
 $(BUILD_DIR)/test_%: $(TEST_DIR)/t_%.c $(SOURCES)
 	mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
