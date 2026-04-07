@@ -26,13 +26,20 @@ void order_list(void) {
 }
 
 int check_load_capacity(int car_id, float cargo_weight) {
+    (void)car_id;
+    (void)cargo_weight;
     return 1;
 }
 
 float calculate_all_earnings(const char* start, const char* end) {
+    (void)start;
+    (void)end;
     return 10000.0;
 }
 
 float calculate_driver_earnings(const char* start, const char* end, const char* last_name) {
+    (void)start;
+    (void)end;
+    (void)last_name;
     return 5000.0;
 }
