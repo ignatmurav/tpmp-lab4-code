@@ -8,14 +8,13 @@
 
 void setup_order_test() {
     db_connect("test.db");
-    // Создаём все необходимые таблицы
     db_execute("DROP TABLE IF EXISTS orders");
     db_execute("DROP TABLE IF EXISTS cars");
     db_execute("DROP TABLE IF EXISTS drivers");
     db_execute("CREATE TABLE cars (id INTEGER PRIMARY KEY AUTOINCREMENT, plate_number TEXT, brand TEXT, initial_mileage INTEGER, load_capacity REAL)");
     db_execute("CREATE TABLE drivers (id INTEGER PRIMARY KEY AUTOINCREMENT, personnel_number TEXT, last_name TEXT, category TEXT, experience INTEGER, birth_year INTEGER, address TEXT)");
     db_execute("CREATE TABLE orders (id INTEGER PRIMARY KEY AUTOINCREMENT, order_date TEXT, driver_id INTEGER, car_id INTEGER, mileage INTEGER, cargo_weight REAL, cost REAL, FOREIGN KEY(driver_id) REFERENCES drivers(id), FOREIGN KEY(car_id) REFERENCES cars(id))");
-    // Добавляем тестовые авто и водителя
+    // Добавляем тестовые автомобиль и водителя
     db_execute("INSERT INTO cars (id, plate_number, brand, initial_mileage, load_capacity) VALUES (1, 'CAR1', 'TestCar', 0, 10.0)");
     db_execute("INSERT INTO drivers (id, personnel_number, last_name) VALUES (1, 'DRV1', 'OrderTest')");
 }
@@ -33,6 +32,7 @@ void test_order_create_ok() {
     assert(rc == 1);
     assert(o.id > 0);
 }
+
 
 void test_order_create_fail_load_capacity() {
     setup_order_test();

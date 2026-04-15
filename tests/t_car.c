@@ -32,8 +32,6 @@ void test_car_read() {
     Car c = {0};
     strcpy(c.plate_number, "A002BB");
     strcpy(c.brand, "ReadCar");
-    c.initial_mileage = 2000;
-    c.load_capacity = 8.0;
     car_create(&c);
     Car *read = car_read(c.id);
     assert(read != NULL);

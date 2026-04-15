@@ -23,6 +23,9 @@ int order_create(Order *order) {
     
     int rc = sqlite3_step(stmt);
     sqlite3_finalize(stmt);
+    
+    order->id = sqlite3_last_insert_rowid(g_db);
+
     return (rc == SQLITE_DONE);
 }
 
