@@ -6,10 +6,8 @@ SRC_DIR = src
 TEST_DIR = tests
 BUILD_DIR = build
 
-# Все исходники, КРОМЕ main.c
 SOURCES = $(filter-out $(SRC_DIR)/main.c,$(wildcard $(SRC_DIR)/*.c))
 
-# Каждый тест собирается отдельно со всеми исходниками (без main.c)
 TEST_FILES = $(wildcard $(TEST_DIR)/t_*.c)
 TEST_TARGETS = $(patsubst $(TEST_DIR)/t_%.c,$(BUILD_DIR)/test_%,$(TEST_FILES))
 
@@ -20,9 +18,9 @@ $(BUILD_DIR)/test_%: $(TEST_DIR)/t_%.c $(SOURCES)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 test: $(TEST_TARGETS)
-	@echo "Running tests..."
+	@echo "Running all tests..."
 	@for test in $(TEST_TARGETS); do \
-		echo "=== Running $$test ==="; \
+		echo "=== $$test ==="; \
 		./$$test; \
 		if [ $$? -ne 0 ]; then \
 			echo "Test $$test failed"; \
@@ -36,7 +34,7 @@ coverage: test
 	gcovr -r . --branches
 
 clean:
-	rm -rf $(BUILD_DIR) *.gcda *.gcno *.gcov coverage.xml coverage.html
+	rm -rf $(BUILD_DIR) *.gcda *.gcno *.gcov coverage.xml coverage.html test.db
 
 check: test
 

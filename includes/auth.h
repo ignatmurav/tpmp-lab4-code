@@ -1,8 +1,15 @@
 #ifndef AUTH_H
 #define AUTH_H
 
-int login(const char* username, const char* password);
-int logout(void);
-int get_current_user_id(void);
+typedef struct {
+    int id;
+    char username[50];
+    char role[20];
+    int driver_id;
+} User;
+
+int login(const char *username, const char *password);
+void logout(void);
+User* get_current_user(void);
 
 #endif

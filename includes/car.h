@@ -9,9 +9,9 @@ typedef struct {
     float load_capacity;
 } Car;
 
-int car_create(Car* car);
+int car_create(Car *car);
 Car* car_read(int id);
-int car_update(Car* car);
+int car_update(Car *car);
 int car_delete(int id);
 void car_list(void);
 
